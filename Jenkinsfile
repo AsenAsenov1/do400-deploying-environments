@@ -53,7 +53,7 @@ pipeline {
                     sh """
                         oc set image \
                         deployment ${DEPLOYMENT_STAGE} \
-                        shopping-cart-stage=quay.io/${QUAY_USR}/do400-deploying-environments:build-${BUILD_NUMBER} \
+                        shopping-cart-stage=quay.io/${QUAY_USERNAME}/do400-deploying-environments:build-${BUILD_NUMBER} \
                         -n ${RHT_OCP4_DEV_USER}-shopping-cart-stage --record
                     """
                 }
