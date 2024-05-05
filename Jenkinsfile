@@ -48,9 +48,6 @@ pipeline {
             }
         }
         stage('Deploy - Stage') {
-            environment {
-                QUAY_USR = credentials('QUAY_USER')
-            }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'QUAY_USER', usernameVariable: 'QUAY_USERNAME', passwordVariable: 'QUAY_PASSWORD')]) {
                     sh """
@@ -62,4 +59,6 @@ pipeline {
                 }
             }
         }
+    }
+}
 
