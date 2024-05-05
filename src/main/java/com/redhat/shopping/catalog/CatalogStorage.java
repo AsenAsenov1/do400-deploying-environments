@@ -2,8 +2,8 @@ package com.redhat.shopping.catalog;
 
 import java.util.Collection;
 
-public interface Catalog {
+public interface CatalogStorage {
+    boolean containsKey(int id);
+    Product get(int id);
     Collection<Product> getAll();
-
-    Product ofId(int id) throws ProductNotFoundInCatalogException;
 }

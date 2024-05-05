@@ -1,22 +1,20 @@
 package com.redhat.shopping.catalog;
 
 import javax.enterprise.context.ApplicationScoped;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Collection;
 
 @ApplicationScoped
 public class CatalogService implements Catalog {
 
-    private final Map<Integer, Product> storage = new HashMap<>();
+    private final CatalogStorage storage;
 
-    /**
-     * Initializes a list of 5 products with IDs from 1 to 5 and the price being the result of the ID * 100.
-     * Simulates persistence with a known set of products.
-     */
-    public CatalogService() {
-        for (int id = 1; id < 5; id++) {
-            this.storage.put(id, new Product(id, id * 100));
-        }
+    public CatalogService(CatalogStorage storage) {
+        this.storage = storage;
+    }
+
+    @Override
+    public Collection<Product> getAll() {
+        return this.storage.getAll();
     }
 
     public Product ofId(int id) throws ProductNotFoundInCatalogException {

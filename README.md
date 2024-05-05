@@ -1,4 +1,4 @@
-# Shopping Cart example app
+# Shopping Cart example app with slow storage
 
 Quarkus example application for the DO400 course.
 
