@@ -8,19 +8,19 @@ objects:
   - kind: Deployment
     apiVersion: apps/v1
     metadata:
-      name: shopping-cart-stage
+      name: shopping-cart-${APP_ENVIRONMENT}
     spec:
       selector:
         matchLabels:
-          app: shopping-cart-stage
+          app: shopping-cart-${APP_ENVIRONMENT}
       replicas: 1
       template:
         metadata:
           labels:
-            app: shopping-cart-stage
+            app: shopping-cart-${APP_ENVIRONMENT}
         spec:
           containers:
-            - name: shopping-cart-stage
+            - name: shopping-cart-${APP_ENVIRONMENT}
               image: quay.io/${QUAY_USER_OR_GROUP}/do400-recover:${APP_IMAGE_TAG}
               imagePullPolicy: Always
               ports:
@@ -29,25 +29,25 @@ objects:
     apiVersion: v1
     metadata:
       labels:
-        app: shopping-cart-stage
-      name: shopping-cart-stage
+        app: shopping-cart-${APP_ENVIRONMENT}
+      name: shopping-cart-${APP_ENVIRONMENT}
     spec:
       ports:
         - port: 8080
           protocol: TCP
           targetPort: 8080
       selector:
-        app: shopping-cart-stage
+        app: shopping-cart-${APP_ENVIRONMENT}
   - kind: Route
     apiVersion: route.openshift.io/v1
     metadata:
-      name: shopping-cart-stage
+      name: shopping-cart-${APP_ENVIRONMENT}
       labels:
-        app: shopping-cart-stage
+        app: shopping-cart-${APP_ENVIRONMENT}
     spec:
       to:
         kind: Service
-        name: shopping-cart-stage
+        name: shopping-cart-${APP_ENVIRONMENT}
       port:
         targetPort: 8080
 
@@ -59,3 +59,6 @@ parameters:
     description: "Image Tag"
     required: false
     value: "latest"
+  - name: APP_ENVIRONMENT
+    description: "App environment (stage/prod)"
+    required: true
