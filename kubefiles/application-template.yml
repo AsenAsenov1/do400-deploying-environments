@@ -8,19 +8,19 @@ objects:
   - kind: Deployment
     apiVersion: apps/v1
     metadata:
-      name: shopping-cart-v2
+      name: shopping-cart-stage
     spec:
       selector:
         matchLabels:
-          app: shopping-cart-v2
+          app: shopping-cart-stage
       replicas: 1
       template:
         metadata:
           labels:
-            app: shopping-cart-v2
+            app: shopping-cart-stage
         spec:
           containers:
-            - name: shopping-cart-v2
+            - name: shopping-cart-stage
               image: quay.io/${QUAY_USER_OR_GROUP}/do400-recover:${APP_IMAGE_TAG}
               imagePullPolicy: Always
               ports:
@@ -29,25 +29,25 @@ objects:
     apiVersion: v1
     metadata:
       labels:
-        app: shopping-cart-v2
-      name: shopping-cart-v2
+        app: shopping-cart-stage
+      name: shopping-cart-stage
     spec:
       ports:
         - port: 8080
           protocol: TCP
           targetPort: 8080
       selector:
-        app: shopping-cart-v2
+        app: shopping-cart-stage
   - kind: Route
     apiVersion: route.openshift.io/v1
     metadata:
-      name: shopping-cart-v2
+      name: shopping-cart-stage
       labels:
-        app: shopping-cart-v2
+        app: shopping-cart-stage
     spec:
       to:
         kind: Service
-        name: shopping-cart-v2
+        name: shopping-cart-stage
       port:
         targetPort: 8080
 
